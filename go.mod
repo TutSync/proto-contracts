@@ -1,4 +1,4 @@
-module example.com/myproject
+module github.com/TutSync/proto-contracts
 
 go 1.23
 
