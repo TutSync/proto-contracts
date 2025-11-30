@@ -1,0 +1,12 @@
+version: v1
+name: buf.build/myuser/myproject # Replace with your actual BSR name if pushing
+deps:
+#  - google/api/annotations.proto
+  - buf.build/googleapis/googleapis
+  - buf.build/envoyproxy/protoc-gen-validate
+lint:
+  use:
+    - DEFAULT
+breaking:
+  use:
+    - FILE

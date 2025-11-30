@@ -1,0 +1,155 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "core-management/users.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "UsersManagement"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/institutes/add": {
+      "post": {
+        "operationId": "UsersManagement_AddRoleAndInstitute",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementGetInstituteAndRolesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/core_managementAddRoleInstituteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UsersManagement"
+        ]
+      }
+    },
+    "/v1/institutes/{userId}": {
+      "get": {
+        "operationId": "UsersManagement_GetInstituteAndRoles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementGetInstituteAndRolesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UsersManagement"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "core_managementAddRoleInstituteRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "instituteCode": {
+          "type": "string"
+        },
+        "instituteName": {
+          "type": "string"
+        },
+        "roleId": {
+          "type": "string"
+        }
+      }
+    },
+    "core_managementGetInstituteAndRolesResponse": {
+      "type": "object",
+      "properties": {
+        "institutes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/core_managementinstituteItem"
+          }
+        }
+      }
+    },
+    "core_managementinstituteItem": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

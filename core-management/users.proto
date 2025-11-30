@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package core_management;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+// The Greeter service definition.
+service UsersManagement {
+
+  rpc GetInstituteAndRoles (GetInstituteAndRolesRequest) returns (GetInstituteAndRolesResponse) {
+    option (google.api.http) = {
+      get: "/v1/institutes/{userId}"
+    };
+  }
+
+  rpc AddRoleAndInstitute (AddRoleInstituteRequest) returns (GetInstituteAndRolesResponse) {
+    option (google.api.http) = {
+      post: "/v1/institutes/add"
+      body: "*"
+    };
+  }
+}
+
+message GetInstituteAndRolesRequest {
+  string userId = 1 [(validate.rules).string.uuid = true];
+}
+
+message GetInstituteAndRolesResponse {
+  repeated instituteItem institutes = 1;
+}
+
+message instituteItem {
+  string name = 1;
+  string code = 2;
+  string role = 3;
+}
+message AddRoleInstituteRequest {
+  string userId = 1 [(validate.rules).string.uuid = true];
+  string instituteCode = 2;
+  string instituteName = 3;
+  string roleId = 4 [(validate.rules).string.uuid = true];
+}
