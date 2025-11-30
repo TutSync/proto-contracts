@@ -5,6 +5,7 @@ managed:
     default: github.com/TutSync/proto-contracts/external/gen # Replaces the need for 'option go_package' in every file
     except:
       - buf.build/googleapis/googleapis
+      - buf.build/envoyproxy/protoc-gen-validate
 plugins:
   # Generate Go structs
   - plugin: buf.build/protocolbuffers/go
