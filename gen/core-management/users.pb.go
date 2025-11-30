@@ -7,7 +7,7 @@
 package core_management
 
 import (
-	_ "github.com/TutSync/proto-contracts/external/gen/validate"
+	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
