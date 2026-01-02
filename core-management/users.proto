@@ -3,6 +3,7 @@ syntax = "proto3";
 package core_management;
 
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 import "validate/validate.proto";
 // The Greeter service definition.
 service UsersManagement {
@@ -15,8 +16,21 @@ service UsersManagement {
 
   rpc AddRoleAndInstitute (AddRoleInstituteRequest) returns (GetInstituteAndRolesResponse) {
     option (google.api.http) = {
-      post: "/v1/institutes/add"
+      post: "/v1/institutes/join"
       body: "*"
+    };
+  }
+
+  rpc CreateInstitute (CreateInstituteRequest) returns (GetInstituteAndRolesResponse) {
+    option (google.api.http) = {
+      post: "/v1/institutes/new"
+      body: "*"
+    };
+  }
+
+  rpc GetInstituteRoles (google.protobuf.Empty) returns (InstituteRolesResponse) {
+    option (google.api.http) = {
+      get: "/v1/institutes/roles"
     };
   }
 }
@@ -30,13 +44,26 @@ message GetInstituteAndRolesResponse {
 }
 
 message instituteItem {
-  string name = 1;
-  string code = 2;
-  string role = 3;
+  string id = 1;
+  string name = 2;
+  string code = 3;
+  string role = 4;
+  string address = 5;
 }
 message AddRoleInstituteRequest {
   string userId = 1 [(validate.rules).string.uuid = true];
   string instituteCode = 2;
   string instituteName = 3;
   string roleId = 4 [(validate.rules).string.uuid = true];
+}
+
+message CreateInstituteRequest {
+  string userId = 1 [(validate.rules).string.uuid = true];
+  string instituteName = 2;
+  string instituteAddress = 3;
+  string contactEmail = 4;
+}
+
+message InstituteRolesResponse {
+  repeated string roles = 1;
 }
