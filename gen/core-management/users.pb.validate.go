@@ -320,11 +320,15 @@ func (m *InstituteItem) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
 	// no validation rules for Name
 
 	// no validation rules for Code
 
 	// no validation rules for Role
+
+	// no validation rules for Address
 
 	if len(errors) > 0 {
 		return InstituteItemMultiError(errors)
@@ -541,3 +545,233 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AddRoleInstituteRequestValidationError{}
+
+// Validate checks the field values on CreateInstituteRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateInstituteRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateInstituteRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateInstituteRequestMultiError, or nil if none found.
+func (m *CreateInstituteRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateInstituteRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = CreateInstituteRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for InstituteName
+
+	// no validation rules for InstituteAddress
+
+	// no validation rules for ContactEmail
+
+	if len(errors) > 0 {
+		return CreateInstituteRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *CreateInstituteRequest) _validateUuid(uuid string) error {
+	if matched := _users_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// CreateInstituteRequestMultiError is an error wrapping multiple validation
+// errors returned by CreateInstituteRequest.ValidateAll() if the designated
+// constraints aren't met.
+type CreateInstituteRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateInstituteRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateInstituteRequestMultiError) AllErrors() []error { return m }
+
+// CreateInstituteRequestValidationError is the validation error returned by
+// CreateInstituteRequest.Validate if the designated constraints aren't met.
+type CreateInstituteRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateInstituteRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateInstituteRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateInstituteRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateInstituteRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateInstituteRequestValidationError) ErrorName() string {
+	return "CreateInstituteRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateInstituteRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateInstituteRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateInstituteRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateInstituteRequestValidationError{}
+
+// Validate checks the field values on InstituteRolesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *InstituteRolesResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on InstituteRolesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// InstituteRolesResponseMultiError, or nil if none found.
+func (m *InstituteRolesResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *InstituteRolesResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return InstituteRolesResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// InstituteRolesResponseMultiError is an error wrapping multiple validation
+// errors returned by InstituteRolesResponse.ValidateAll() if the designated
+// constraints aren't met.
+type InstituteRolesResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m InstituteRolesResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m InstituteRolesResponseMultiError) AllErrors() []error { return m }
+
+// InstituteRolesResponseValidationError is the validation error returned by
+// InstituteRolesResponse.Validate if the designated constraints aren't met.
+type InstituteRolesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InstituteRolesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InstituteRolesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InstituteRolesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InstituteRolesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InstituteRolesResponseValidationError) ErrorName() string {
+	return "InstituteRolesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e InstituteRolesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInstituteRolesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InstituteRolesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InstituteRolesResponseValidationError{}

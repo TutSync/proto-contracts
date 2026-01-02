@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/v1/institutes/add": {
+    "/v1/institutes/join": {
       "post": {
         "operationId": "UsersManagement_AddRoleAndInstitute",
         "responses": {
@@ -43,6 +43,60 @@
             }
           }
         ],
+        "tags": [
+          "UsersManagement"
+        ]
+      }
+    },
+    "/v1/institutes/new": {
+      "post": {
+        "operationId": "UsersManagement_CreateInstitute",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementGetInstituteAndRolesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/core_managementCreateInstituteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UsersManagement"
+        ]
+      }
+    },
+    "/v1/institutes/roles": {
+      "get": {
+        "operationId": "UsersManagement_GetInstituteRoles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementInstituteRolesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
         "tags": [
           "UsersManagement"
         ]
@@ -97,6 +151,23 @@
         }
       }
     },
+    "core_managementCreateInstituteRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "instituteName": {
+          "type": "string"
+        },
+        "instituteAddress": {
+          "type": "string"
+        },
+        "contactEmail": {
+          "type": "string"
+        }
+      }
+    },
     "core_managementGetInstituteAndRolesResponse": {
       "type": "object",
       "properties": {
@@ -109,9 +180,23 @@
         }
       }
     },
+    "core_managementInstituteRolesResponse": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "core_managementinstituteItem": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
@@ -119,6 +204,9 @@
           "type": "string"
         },
         "role": {
+          "type": "string"
+        },
+        "address": {
           "type": "string"
         }
       }
