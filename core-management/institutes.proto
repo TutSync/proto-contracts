@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package core_management;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "validate/validate.proto";
+
+service InstitutesManagement {
+
+  rpc GetInstituteAndRoles (GetInstituteAndRolesRequest) returns (GetInstituteAndRolesResponse) {
+    option (google.api.http) = {
+      get: "/v1/institutes/{userId}"
+    };
+  }
+
+  rpc JoinInstituteWithRole (JoinInstituteRequest) returns (EmptyResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/institutes/join"
+      body: "*"
+    };
+  }
+
+  rpc CreateInstitute (CreateInstituteRequest) returns (EmptyResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/institutes/new"
+      body: "*"
+    };
+  }
+
+  rpc GetInstituteRoles (google.protobuf.Empty) returns (InstituteRolesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/institutes/roles"
+    };
+  }
+
+  rpc ListPendingJoinRequests (ListPendingReqRequest) returns (PendingJoinReqResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/pending-join-requests/list"
+    };
+  }
+
+  rpc ApproveJoinRequest (ApproveJoinReqRequest) returns (EmptyResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/pending-join-requests/approve"
+      body: "*"
+    };
+  }
+
+  rpc RejectJoinRequest (RejectJoinReqRequest) returns (EmptyResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/pending-join-requests/reject"
+      body: "*"
+    };
+  }
+}
+
+message GetInstituteAndRolesRequest {
+  string userId = 1 [(validate.rules).string.uuid = true, (validate.rules).string.min_len = 1];
+}
+
+message GetInstituteAndRolesResponse {
+  repeated instituteItem institutes = 1;
+}
+
+message instituteItem {
+  string id = 1;
+  string name = 2;
+  string code = 3;
+  string role = 4;
+  string address = 5;
+}
+message JoinInstituteRequest {
+  string userId = 1 [(validate.rules).string.uuid = true, (validate.rules).string.min_len = 1];
+  string instituteCode = 2 [(validate.rules).string.min_len = 1];
+  string roleId = 3 [(validate.rules).string.uuid = true, (validate.rules).string.min_len = 1];
+}
+
+message CreateInstituteRequest {
+  string userId = 1 [(validate.rules).string.uuid = true, (validate.rules).string.min_len = 1];
+  string instituteName = 2;
+  string instituteAddress = 3;
+  string contactEmail = 4;
+}
+
+message InstituteRolesResponse {
+  map<string, string> roles = 1;
+}
+
+message EmptyResponse {
+  string message = 1;
+}
+
+message ListPendingReqRequest {
+  string instituteId = 1 [(validate.rules).string.uuid = true, (validate.rules).string.min_len = 1];
+  int32 pageNo = 2;
+  int32 pageSize = 3;
+}
+
+message PendingJoinReqResponse {
+  repeated JoinRequestItem requests = 1;
+  bool hasNext = 2;
+}
+
+message JoinRequestItem {
+  string requestId = 1;
+  string userId = 2;
+  string roleName = 3;
+  string requestedAt = 4;
+}
+
+message ApproveJoinReqRequest {
+  string requestId = 1 [(validate.rules).string.uuid = true, (validate.rules).string.min_len = 1];
+  optional string roleId = 2[(validate.rules).string.uuid = true];
+}
+
+message RejectJoinReqRequest {
+  string requestId = 1 [(validate.rules).string.uuid = true, (validate.rules).string.min_len = 1];
+  optional string reason = 2;
+}
