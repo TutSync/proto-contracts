@@ -1,0 +1,410 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "core-management/institutes.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "InstitutesManagement"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/institutes/join": {
+      "post": {
+        "operationId": "InstitutesManagement_JoinInstituteWithRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementEmptyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/core_managementJoinInstituteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InstitutesManagement"
+        ]
+      }
+    },
+    "/api/v1/institutes/new": {
+      "post": {
+        "operationId": "InstitutesManagement_CreateInstitute",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementEmptyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/core_managementCreateInstituteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InstitutesManagement"
+        ]
+      }
+    },
+    "/api/v1/institutes/roles": {
+      "get": {
+        "operationId": "InstitutesManagement_GetInstituteRoles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementInstituteRolesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "InstitutesManagement"
+        ]
+      }
+    },
+    "/api/v1/pending-join-requests/approve": {
+      "post": {
+        "operationId": "InstitutesManagement_ApproveJoinRequest",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementEmptyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/core_managementApproveJoinReqRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InstitutesManagement"
+        ]
+      }
+    },
+    "/api/v1/pending-join-requests/list": {
+      "get": {
+        "operationId": "InstitutesManagement_ListPendingJoinRequests",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementPendingJoinReqResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "instituteId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "InstitutesManagement"
+        ]
+      }
+    },
+    "/api/v1/pending-join-requests/reject": {
+      "post": {
+        "operationId": "InstitutesManagement_RejectJoinRequest",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementEmptyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/core_managementRejectJoinReqRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InstitutesManagement"
+        ]
+      }
+    },
+    "/v1/institutes/{userId}": {
+      "get": {
+        "operationId": "InstitutesManagement_GetInstituteAndRoles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/core_managementGetInstituteAndRolesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "InstitutesManagement"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "core_managementApproveJoinReqRequest": {
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "type": "string"
+        },
+        "roleId": {
+          "type": "string"
+        }
+      }
+    },
+    "core_managementCreateInstituteRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "instituteName": {
+          "type": "string"
+        },
+        "instituteAddress": {
+          "type": "string"
+        },
+        "contactEmail": {
+          "type": "string"
+        }
+      }
+    },
+    "core_managementEmptyResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "core_managementGetInstituteAndRolesResponse": {
+      "type": "object",
+      "properties": {
+        "institutes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/core_managementinstituteItem"
+          }
+        }
+      }
+    },
+    "core_managementInstituteRolesResponse": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "core_managementJoinInstituteRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "instituteCode": {
+          "type": "string"
+        },
+        "roleId": {
+          "type": "string"
+        }
+      }
+    },
+    "core_managementJoinRequestItem": {
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "roleName": {
+          "type": "string"
+        },
+        "requestedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "core_managementPendingJoinReqResponse": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/core_managementJoinRequestItem"
+          }
+        },
+        "hasNext": {
+          "type": "boolean"
+        }
+      }
+    },
+    "core_managementRejectJoinReqRequest": {
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "core_managementinstituteItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
